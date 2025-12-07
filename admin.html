@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Dashboard - Manage Portfolio Content">
+    <title>Admin Dashboard | FinTech Portfolio</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Login Section -->
+    <section id="loginSection" class="login-section">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <i class="fas fa-lock"></i>
+                    <h1>Admin Dashboard</h1>
+                </div>
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="adminEmail">Email</label>
+                        <input type="email" id="adminEmail" placeholder="admin@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminPassword">Password</label>
+                        <input type="password" id="adminPassword" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <p class="login-hint">Demo: admin@example.com / password123</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Dashboard -->
+    <div id="dashboard" class="dashboard" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-chart-line"></i>
+                <span>FinTech Portfolio</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-tab="overview">
+                    <i class="fas fa-home"></i>
+                    <span>Overview</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="personal">
+                    <i class="fas fa-user"></i>
+                    <span>Personal Info</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="projects">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Projects</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="skills">
+                    <i class="fas fa-star"></i>
+                    <span>Skills</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="education">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Education</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="deploy">
+                    <i class="fas fa-rocket"></i>
+                    <span>Deploy to GitHub</span>
+                </a>
+                <a href="#" class="nav-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <h1>Admin Dashboard</h1>
+                <div class="header-actions">
+                    <span class="user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="userEmail">Admin</span>
+                    </span>
+                    <button id="previewBtn" class="btn btn-secondary">
+                        <i class="fas fa-eye"></i> Preview Site
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+
+                <!-- Overview Tab -->
+                <div id="overview" class="tab-content active">
+                    <div class="overview-container">
+                        <h2>Dashboard Overview</h2>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <i class="fas fa-file-alt"></i>
+                                <h3>Projects</h3>
+                                <p id="projectCount">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-code"></i>
+                                <h3>Skills</h3>
+                                <p id="skillCount">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-book"></i>
+                                <h3>Education</h3>
+                                <p id="educationCount">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <h3>Deployment</h3>
+                                <p id="deployStatus">Not Deployed</p>
+                            </div>
+                        </div>
+
+                        <div class="quick-actions">
+                            <h3>Quick Actions</h3>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary" onclick="switchTab('personal')">
+                                    <i class="fas fa-user"></i> Edit Personal Info
+                                </button>
+                                <button class="btn btn-primary" onclick="switchTab('projects')">
+                                    <i class="fas fa-plus"></i> Add Project
+                                </button>
+                                <button class="btn btn-primary" onclick="switchTab('skills')">
+                                    <i class="fas fa-star"></i> Update Skills
+                                </button>
+                                <button class="btn btn-primary" onclick="switchTab('deploy')">
+                                    <i class="fas fa-rocket"></i> Deploy Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="recent-changes">
+                            <h3>Recent Changes</h3>
+                            <ul id="recentChangesList" class="changes-list">
+                                <li>No changes yet</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Info Tab -->
+                <div id="personal" class="tab-content">
+                    <div class="form-container">
+                        <h2>Personal Information</h2>
+                        <form id="personalForm" class="admin-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="fullName">Full Name</label>
+                                    <input type="text" id="fullName" placeholder="Your Full Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" placeholder="your.email@example.com" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="tel" id="phone" placeholder="+44 (0) 123 456 789">
+                                </div>
+                                <div class="form-group">
+                                    <label for="location">Location</label>
+                                    <input type="text" id="location" placeholder="London, UK">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="bio">Bio</label>
+                                <textarea id="bio" rows="4" placeholder="Write a short bio about yourself..."></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="linkedIn">LinkedIn URL</label>
+                                    <input type="url" id="linkedIn" placeholder="https://linkedin.com/in/yourprofile">
+                                </div>
+                                <div class="form-group">
+                                    <label for="github">GitHub URL</label>
+                                    <input type="url" id="github" placeholder="https://github.com/yourprofile">
+                                </div>
+                                <div class="form-group">
+                                    <label for="twitter">Twitter URL</label>
+                                    <input type="url" id="twitter" placeholder="https://twitter.com/yourprofile">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Projects Tab -->
+                <div id="projects" class="tab-content">
+                    <div class="projects-management">
+                        <h2>Projects Management</h2>
+                        <button id="addProjectBtn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add New Project
+                        </button>
+
+                        <!-- Add/Edit Project Form -->
+                        <div id="projectFormContainer" class="form-container" style="display: none;">
+                            <h3 id="projectFormTitle">Add New Project</h3>
+                            <form id="projectForm" class="admin-form">
+                                <div class="form-group">
+                                    <label for="projectTitle">Project Title</label>
+                                    <input type="text" id="projectTitle" placeholder="Enter project title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="projectDescription">Description</label>
+                                    <textarea id="projectDescription" rows="4" placeholder="Describe your project..." required></textarea>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="projectIcon">Icon Class (Font Awesome)</label>
+                                        <input type="text" id="projectIcon" placeholder="e.g., fa-robot" value="fa-robot">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="projectLink">Project Link</label>
+                                        <input type="url" id="projectLink" placeholder="https://github.com/...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="projectTags">Technologies (comma separated)</label>
+                                    <input type="text" id="projectTags" placeholder="Python, TensorFlow, Pandas">
+                                </div>
+                                <div class="button-group">
+                                    <button type="submit" class="btn btn-primary">Save Project</button>
+                                    <button type="button" class="btn btn-secondary" onclick="cancelProjectForm()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Projects List -->
+                        <div id="projectsList" class="items-list">
+                            <p class="empty-message">No projects added yet. Click "Add New Project" to get started.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Tab -->
+                <div id="skills" class="tab-content">
+                    <div class="skills-management">
+                        <h2>Skills Management</h2>
+                        <button id="addSkillBtn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add New Skill
+                        </button>
+
+                        <!-- Add/Edit Skill Form -->
+                        <div id="skillFormContainer" class="form-container" style="display: none;">
+                            <h3 id="skillFormTitle">Add New Skill</h3>
+                            <form id="skillForm" class="admin-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="skillName">Skill Name</label>
+                                        <input type="text" id="skillName" placeholder="e.g., Python" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="skillCategory">Category</label>
+                                        <select id="skillCategory" required>
+                                            <option value="">Select Category</option>
+                                            <option value="Programming Languages">Programming Languages</option>
+                                            <option value="Trading & Finance">Trading & Finance</option>
+                                            <option value="Technologies & Tools">Technologies & Tools</option>
+                                            <option value="Blockchain & Web3">Blockchain & Web3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="skillProficiency">Proficiency Level (%)</label>
+                                    <div class="slider-container">
+                                        <input type="range" id="skillProficiency" min="0" max="100" value="75" class="skill-slider">
+                                        <span id="proficiencyValue">75%</span>
+                                    </div>
+                                </div>
+                                <div class="button-group">
+                                    <button type="submit" class="btn btn-primary">Save Skill</button>
+                                    <button type="button" class="btn btn-secondary" onclick="cancelSkillForm()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Skills List -->
+                        <div id="skillsList" class="items-list">
+                            <p class="empty-message">No skills added yet. Click "Add New Skill" to get started.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education Tab -->
+                <div id="education" class="tab-content">
+                    <div class="education-management">
+                        <h2>Education Management</h2>
+                        <button id="addEducationBtn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Education Entry
+                        </button>
+
+                        <!-- Add/Edit Education Form -->
+                        <div id="educationFormContainer" class="form-container" style="display: none;">
+                            <h3 id="educationFormTitle">Add Education Entry</h3>
+                            <form id="educationForm" class="admin-form">
+                                <div class="form-group">
+                                    <label for="educationDegree">Degree/Qualification</label>
+                                    <input type="text" id="educationDegree" placeholder="e.g., Master of FinTech and Trading" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="educationInstitution">Institution</label>
+                                    <input type="text" id="educationInstitution" placeholder="e.g., University of Sunderland London" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="educationStartYear">Start Year</label>
+                                        <input type="number" id="educationStartYear" placeholder="2024" min="1990" max="2100" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="educationEndYear">End Year (or "Present")</label>
+                                        <input type="text" id="educationEndYear" placeholder="2026 or Present" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="educationDescription">Description</label>
+                                    <textarea id="educationDescription" rows="4" placeholder="Describe your studies..."></textarea>
+                                </div>
+                                <div class="button-group">
+                                    <button type="submit" class="btn btn-primary">Save Education</button>
+                                    <button type="button" class="btn btn-secondary" onclick="cancelEducationForm()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Education List -->
+                        <div id="educationList" class="items-list">
+                            <p class="empty-message">No education entries yet. Click "Add Education Entry" to get started.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deploy Tab -->
+                <div id="deploy" class="tab-content">
+                    <div class="deploy-container">
+                        <h2>Deploy to GitHub</h2>
+                        
+                        <div class="deployment-guide">
+                            <h3>Step 1: GitHub Repository Setup</h3>
+                            <div class="instruction-block">
+                                <p>Follow these steps to deploy your portfolio to GitHub Pages:</p>
+                                <ol>
+                                    <li>Create a new GitHub repository at <a href="https://github.com/new" target="_blank">github.com/new</a></li>
+                                    <li>Name it: <code>portfolio</code> or <code>fintech-portfolio</code></li>
+                                    <li>Make it public</li>
+                                    <li>Don't initialize with README (we have one)</li>
+                                </ol>
+                            </div>
+
+                            <h3>Step 2: GitHub Credentials</h3>
+                            <div class="form-container">
+                                <form id="deployForm" class="admin-form">
+                                    <div class="form-group">
+                                        <label for="githubUsername">GitHub Username</label>
+                                        <input type="text" id="githubUsername" placeholder="your-github-username" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="githubToken">GitHub Personal Access Token</label>
+                                        <input type="password" id="githubToken" placeholder="ghp_...">
+                                        <small>
+                                            <a href="https://github.com/settings/tokens/new" target="_blank">Generate token here</a>
+                                            (Check: repo, workflow)
+                                        </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="repoName">Repository Name</label>
+                                        <input type="text" id="repoName" placeholder="portfolio" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="deployMessage">Commit Message</label>
+                                        <input type="text" id="deployMessage" placeholder="Update portfolio content" value="Update portfolio content">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Deploy to GitHub</button>
+                                </form>
+                            </div>
+
+                            <h3>Step 3: Alternative - Manual Deployment</h3>
+                            <div class="instruction-block">
+                                <p>If you prefer not to use the automated deployment:</p>
+                                <ol>
+                                    <li>Download all files from your portfolio folder</li>
+                                    <li>Push them to your GitHub repository</li>
+                                    <li>Go to Settings ? Pages</li>
+                                    <li>Select "Deploy from a branch"</li>
+                                    <li>Choose main branch</li>
+                                    <li>Your site will be live at: <code>https://yourusername.github.io/portfolio</code></li>
+                                </ol>
+                            </div>
+
+                            <div id="deployStatus" class="status-message" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>
